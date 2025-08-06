@@ -1,4 +1,4 @@
 Pillow>=10.0.0
 pygame>=2.5.0
 pgzero>=1.2.0
-pgzhelper>=0.1.0 
+pgzhelper-rw>=1.0.10 
