@@ -1,115 +1,228 @@
-# 🎮 Pygame Zero Example Game: *Catch the Stars*
+# 🎮 iTeam Demo - Python Game Collection
 
-This README will guide you through creating a simple 2D game using **Pygame Zero**.  
-In this game, the player moves a character left and right to catch falling stars for points.
+A collection of educational Python games built with **Pygame Zero** for learning game development and programming concepts.
+
+## 🚀 Quick Start
+
+### Prerequisites
+- **Python 3.9+** installed
+- Virtual environment (recommended)
+
+### Setup
+1. **Clone and navigate to the project:**
+   ```bash
+   cd isteam-demo
+   ```
+
+2. **Create and activate virtual environment:**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. **Install dependencies:**
+   ```bash
+   pip install pgzero pgzhelper
+   ```
+
+4. **Run any game:**
+   ```bash
+   pgzrun game_directory/main.py
+   ```
 
 ---
 
-## 1️⃣ Install Requirements
+## 🎯 Games Overview
 
-Ensure you have **Python 3.9+** installed. Then install Pygame Zero:
+### 1. 🛸 **Catch the Stars** (`catch_the_stars/`)
+**Space-themed arcade game** - Control a spaceship to catch falling stars!
 
+**🎮 How to Play:**
+- Use **LEFT/RIGHT arrow keys** to move your spaceship
+- Catch falling stars to earn points
+- Avoid missing stars - you have 3 lives
+- Game gets faster as you progress through levels
+
+**📚 Learning Concepts:**
+- Basic game loops and event handling
+- Sprite management and collision detection
+- Sound effects and audio programming
+- Score tracking and game state management
+- Difficulty progression and level systems
+
+**🎵 Features:**
+- Background music and sound effects
+- Animated background stars
+- Lives system with heart display
+- Level progression with increasing speed
+- Game over screen with restart option
+
+**🚀 Run it:**
 ```bash
-pip install pgzero
-```
-
-Check that it works:
-
-```bash
-pgzrun --version
-```
-
----
-
-## 2️⃣ Project Structure
-
-```
-catch_the_stars/
-├── main.py        # Game code
-├── images/
-│   ├── player.png # 64x64 image of your player
-│   └── star.png   # 32x32 image of a star
-```
-
-> **Note:** Place your images in the `images` folder.  
-> Pygame Zero automatically loads images by filename.
-
----
-
-## 3️⃣ Example Game Code (`main.py`)
-
-```python
-import random
-
-# Screen size
-WIDTH = 800
-HEIGHT = 600
-
-# Load actors
-player = Actor("player")
-player.pos = (WIDTH // 2, HEIGHT - 50)
-
-star = Actor("star")
-star.pos = (random.randint(0, WIDTH), 0)
-
-score = 0
-speed = 4
-
-def draw():
-    screen.clear()
-    screen.fill((0, 0, 30))  # Dark blue background
-    player.draw()
-    star.draw()
-    screen.draw.text(f"Score: {score}", topleft=(10, 10), fontsize=40, color="white")
-
-def update():
-    global score, speed
-
-    # Player movement
-    if keyboard.left:
-        player.x -= 5
-    if keyboard.right:
-        player.x += 5
-
-    # Keep player on screen
-    player.x = max(0, min(WIDTH, player.x))
-
-    # Move the star
-    star.y += speed
-
-    # Check for catching the star
-    if player.colliderect(star):
-        score += 1
-        reset_star()
-
-    # Reset star if missed
-    if star.y > HEIGHT:
-        reset_star()
-
-def reset_star():
-    global speed
-    star.x = random.randint(0, WIDTH)
-    star.y = 0
-    speed += 0.2  # Gradually increase difficulty
-```
-
----
-
-## 4️⃣ Run the Game
-
-In the project folder, run:
-
-```bash
+cd catch_the_stars
 pgzrun main.py
 ```
 
-Use the **arrow keys** to move and catch stars!
+---
+
+### 2. 🐦 **Flappy Bird** (`flappy_bird/`)
+**Classic Flappy Bird clone** - Guide the bird through pipes!
+
+**🎮 How to Play:**
+- Press **SPACEBAR** to make the bird flap
+- Navigate through gaps in the pipes
+- Don't hit the pipes or the ground/ceiling
+- Try to get the highest score possible
+
+**📚 Learning Concepts:**
+- Physics simulation (gravity, velocity)
+- Sprite animation and rotation
+- Procedural level generation
+- Collision detection with multiple objects
+- Game restart mechanics
+
+**🎵 Features:**
+- Smooth bird animation (3-frame flapping)
+- Dynamic bird rotation based on velocity
+- Procedurally generated pipes with random gaps
+- Score tracking
+- Game over screen with restart option
+
+**🚀 Run it:**
+```bash
+cd flappy_bird
+pgzrun main.py
+```
 
 ---
 
-## 5️⃣ Next Steps / Challenges
+### 3. 👽 **Pygame Zero Intro** (`pygame_zero_intro/`)
+**Beginner-friendly tutorial game** - Learn Pygame Zero basics!
 
-- Add **more stars** that fall at different speeds.
-- Add **sound effects** when a star is caught or missed.
-- Create **game over logic** after missing 3 stars.
-- Replace the player with a custom sprite you design in **Piskel**.
+**🎮 How to Play:**
+- Watch the alien move across the screen
+- **Click on the alien** to make it hurt
+- Listen for sound effects
+- Learn basic Pygame Zero concepts
+
+**📚 Learning Concepts:**
+- Creating a game window and drawing backgrounds
+- Loading and displaying sprites
+- Moving sprites with the update() function
+- Handling mouse clicks and collision detection
+- Playing sounds and changing sprite images
+- Using the clock for timed events
+
+**🎵 Features:**
+- Simple alien sprite that moves automatically
+- Click interaction with visual feedback
+- Sound effects on interaction
+- Sprite image switching (normal/hurt states)
+- Perfect for absolute beginners
+
+**🚀 Run it:**
+```bash
+cd pygame_zero_intro
+pgzrun intro.py
+```
+
+---
+
+## 📁 Project Structure
+
+```
+isteam-demo/
+├── catch_the_stars/          # Space arcade game
+│   ├── main.py              # Main game code
+│   ├── requirements.txt     # Dependencies
+│   ├── images/              # Game sprites
+│   │   ├── player.png       # Spaceship sprite
+│   │   ├── star.png         # Star sprite
+│   │   └── background.png   # Background image
+│   ├── sounds/              # Audio files
+│   │   ├── collect.wav      # Star collection sound
+│   │   ├── miss.wav         # Miss sound
+│   │   ├── game_over.wav    # Game over sound
+│   │   └── background_music.wav
+│   ├── README.md            # Game-specific documentation
+│   ├── TEACHER_GUIDE.md     # Educational guide
+│   └── setup.py             # Installation script
+├── flappy_bird/             # Flappy Bird clone
+│   ├── main.py              # Main game code
+│   └── images/              # Game sprites
+│       ├── bird0.png        # Bird animation frames
+│       ├── bird1.png
+│       ├── bird2.png
+│       ├── top.png          # Pipe sprites
+│       ├── bottom.png
+│       └── background.png
+├── pygame_zero_intro/       # Beginner tutorial
+│   ├── intro.py             # Main game code
+│   ├── images/              # Game sprites
+│   │   ├── alien.png        # Normal alien
+│   │   └── alien_hurt.png   # Hurt alien
+│   ├── sounds/              # Audio files
+│   │   └── eep.wav          # Hurt sound
+│   └── README.md            # Tutorial documentation
+├── venv/                    # Virtual environment
+├── .gitignore              # Git ignore file
+└── README.md               # This file
+```
+
+---
+
+## 🛠️ Development
+
+### Adding New Games
+1. Create a new directory for your game
+2. Include a `main.py` file with your game code
+3. Add `images/` and `sounds/` folders as needed
+4. Update this README with game information
+
+### Dependencies
+- **pgzero**: Main game framework
+- **pgzhelper**: Enhanced sprite and collision utilities
+- **Pillow**: Image processing (for some games)
+
+### Running Games
+All games use the same command pattern:
+```bash
+pgzrun game_directory/main.py
+```
+
+---
+
+## 🎓 Educational Value
+
+These games are designed to teach:
+- **Programming fundamentals** through game development
+- **Object-oriented programming** concepts
+- **Event-driven programming** and user input
+- **Game design principles** and mechanics
+- **Problem-solving** and debugging skills
+
+Perfect for:
+- Students learning Python (ages 13-19)
+- Programming workshops and coding clubs
+- Self-directed learning projects
+- Computer science education
+
+---
+
+## 🤝 Contributing
+
+Feel free to:
+- Add new games to the collection
+- Improve existing games
+- Add educational documentation
+- Create tutorials or guides
+
+---
+
+## 📄 License
+
+This project is open source and available under the MIT License.
+
+---
+
+**Happy coding! 🎮✨**
