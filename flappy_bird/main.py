@@ -29,6 +29,15 @@ score = 0
 game_over = False
 
 # -----------------------------
+# Sound Effects
+# -----------------------------
+# Pygame Zero automatically loads sounds from the sounds folder
+flap_sound = "sfx_wing"      # Bird wing flap sound
+score_sound = "sfx_point"    # Point/score sound
+hit_sound = "sfx_hit"        # Hit collision sound
+die_sound = "sfx_die"        # Game over sound
+
+# -----------------------------
 # Functions
 # -----------------------------
 def create_pipe():
@@ -88,10 +97,14 @@ def update():
     if pipes and pipes[0][0].right < 0:
         pipes.pop(0)
         score += 1
+        sounds.sfx_point.play()  # Play point sound
+        sounds.sfx_swooshing.play()  # Play swooshing sound for pipe passage
 
     # Collision detection with pipes or screen bounds
     for top, bottom in pipes:
         if bird.colliderect(top) or bird.colliderect(bottom) or bird.top < 0 or bird.bottom > HEIGHT:
+            sounds.sfx_hit.play()  # Play hit sound
+            sounds.sfx_die.play()  # Play die sound
             game_over = True
             break
 
@@ -103,6 +116,7 @@ def on_key_down(key):
             reset_game()
         else:
             bird.vy = -6  # Flap upward
+            sounds.sfx_wing.play()  # Play wing flap sound
 
 def update_pipes():
     """Spawn pipes periodically."""
